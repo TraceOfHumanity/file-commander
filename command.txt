@@ -1,1 +1,1 @@
-create a file myfile.txt
+rename the file my.txt to my2.txt

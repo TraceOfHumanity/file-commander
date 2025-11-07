@@ -2,9 +2,9 @@ const fs = require('fs/promises');
 
 (async () => {
   const CREATE_FILE = "create a file";
-  const DELETE_FILE = "delete a file";
+  const DELETE_FILE = "delete the file";
   const RENAME_FILE = "rename the file";
-  const ADD_TO_FILE = "add to file";
+  const ADD_TO_FILE = "add to the file";
 
   const createFile = async (filePath) => {
     try {
@@ -19,15 +19,36 @@ const fs = require('fs/promises');
   }
 
   const deleteFile = async (filePath) => {
-    console.log(`The file ${filePath} was successfully deleted`);
+    try {
+      await fs.unlink(filePath);
+      console.log(`The file ${filePath} was successfully deleted`);
+    } catch (error) {
+      if (error.code === "ENOENT") {
+        console.log(`The file ${filePath} does not exist`);
+      } else {
+        console.log(`An error occurred while deleting the file ${filePath}`);
+        console.log(error);
+      }
+    }
   }
 
   const renameFile = async (filePath, newFilePath) => {
-    console.log(`The file ${filePath} was successfully renamed to ${newFilePath}`);
+    try {
+      await fs.rename(filePath, newFilePath);
+      console.log(`The file ${filePath} was successfully renamed to ${newFilePath}`);
+    } catch (error) {
+      if (error.code === "ENOENT") {
+        console.log(`The file ${filePath} does not exist`);
+      } else {
+        console.log(`An error occurred while renaming the file ${filePath}`);
+        console.log(error);
+      }
+    }
   }
 
   const addToFile = async (filePath, content) => {
-    console.log(`The file ${filePath} was successfully updated with the content: ${content}`);
+    console.log(`Add to ${filePath}`)
+    console.log(content);
   }
 
   const commandFileHandler = await fs.open("./command.txt", "r");
