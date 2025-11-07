@@ -1,1 +1,1 @@
-rename the file my.txt to my2.txt
+add to the file myfile.txt this content: Hello, world! is the new content
